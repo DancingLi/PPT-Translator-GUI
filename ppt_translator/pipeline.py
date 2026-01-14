@@ -5,12 +5,13 @@ import json
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from typing import Optional
 from xml.dom import minidom
 
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE_TYPE
-from pptx.enum.text import PP_ALIGN
+from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Pt
 
 from .translation import TranslationService
@@ -27,6 +28,21 @@ def get_alignment_value(alignment_str: str | None):
         None: None,
     }
     return alignment_map.get(alignment_str)
+
+
+def get_vertical_anchor_value(anchor_str: str | None):
+    """Convert vertical anchor string to MSO_ANCHOR enum value."""
+    anchor_map = {
+        "TOP (1)": MSO_ANCHOR.TOP,
+        "MIDDLE (3)": MSO_ANCHOR.MIDDLE,
+        "BOTTOM (2)": MSO_ANCHOR.BOTTOM,
+        "MSO_ANCHOR.TOP": MSO_ANCHOR.TOP,
+        "MSO_ANCHOR.MIDDLE": MSO_ANCHOR.MIDDLE,
+        "MSO_ANCHOR.BOTTOM": MSO_ANCHOR.BOTTOM,
+        "None": None,
+        None: None,
+    }
+    return anchor_map.get(anchor_str)
 
 
 def get_shape_properties(shape):
@@ -167,7 +183,7 @@ def apply_table_properties(table, table_data):
                 cell.margin_top = cell_data["margin_top"]
                 cell.margin_bottom = cell_data["margin_bottom"]
                 if cell_data.get("vertical_anchor"):
-                    cell.vertical_anchor = eval(cell_data["vertical_anchor"])
+                    cell.vertical_anchor = get_vertical_anchor_value(cell_data["vertical_anchor"])
                 cell.text = ""
                 paragraph = cell.text_frame.paragraphs[0]
                 run = paragraph.add_run()
