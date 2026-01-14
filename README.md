@@ -19,11 +19,17 @@ Convert your PowerPoint presentations to beautifully translated documents while 
 ## ✨ Features
 
 • ⚡ **Lightning Fast**: Sub-2 second translation for most presentations
-• 🔄 **Multi-Provider Support**: Switch between DeepSeek, OpenAI, Anthropic, and Grok with a simple CLI flag
+• 🔄 **Multi-Provider Support**: Switch between DeepSeek, OpenAI, Anthropic, Grok, and Gemini with a simple CLI flag
 • 🎨 **Rich Formatting**: Preserves fonts, colors, spacing, tables, and alignment after translation
 • 🔗 **Smart Caching**: Avoids duplicate API calls for repeated strings
 • 📦 **Batch Processing**: Convert entire directories of presentations at once
 • 🛡️ **Robust Processing**: Handles all PowerPoint content types with graceful fallbacks
+
+## 🆕 Recent Updates
+
+- **Gemini support**: Added Google Gemini as a translation provider
+- **Updated model defaults**: Now using latest model versions (GPT-5.2, Claude Sonnet 4.5, Grok 4.1)
+- **Security fix**: Replaced unsafe `eval()` with safe lookup functions
 
 ## 📦 Requirements
 
@@ -50,12 +56,13 @@ cp example.env .env
 
 Environment variables of interest:
 
-| Provider  | Required variable         | Optional variables                 | Example default model           |
+| Provider  | Required variable         | Optional variables                 | Default model                   |
 |-----------|---------------------------|------------------------------------|---------------------------------|
 | DeepSeek  | `DEEPSEEK_API_KEY`        | `DEEPSEEK_API_BASE`                | `deepseek-chat`                 |
-| OpenAI    | `OPENAI_API_KEY`          | `OPENAI_ORG`                       | `gpt-5` (use `--model` for Mini/Nano) |
-| Anthropic | `ANTHROPIC_API_KEY`       | —                                  | `claude-3.7-sonnet`             |
-| Grok      | `GROK_API_KEY`            | `GROK_API_BASE`                    | `grok-beta`                     |
+| OpenAI    | `OPENAI_API_KEY`          | `OPENAI_ORG`                       | `gpt-5.2-2025-12-11`            |
+| Anthropic | `ANTHROPIC_API_KEY`       | —                                  | `claude-sonnet-4-5-20250514`    |
+| Grok      | `GROK_API_KEY`            | `GROK_API_BASE`                    | `grok-4.1-fast`                 |
+| Gemini    | `GEMINI_API_KEY`          | —                                  | `gemini-3-flash-preview`        |
 
 > 📝 The CLI reads your `.env` file automatically when run from a shell session that has the variables exported. On macOS you can add the exports to `~/.zshrc` or use `direnv` for project-specific secrets.
 
@@ -74,7 +81,7 @@ python main.py /path/to/decks \
 
 Common options:
 
-- `--provider {deepseek,openai,anthropic,grok}` – choose the model provider.
+- `--provider {deepseek,openai,anthropic,grok,gemini}` – choose the model provider.
 - `--model MODEL_NAME` – override the default model for that provider (e.g. `gpt-5-nano`).
 - `--source-lang` / `--target-lang` – ISO language codes.
 - `--max-chunk-size` – character limit per translation request (default: 1000).
@@ -101,10 +108,14 @@ The test suite focuses on translation chunking/caching and CLI utilities to ensu
 
 ```
 .
+├── .claude/skills/ppt-translator/  # Self-contained Agent Skill
+│   ├── SKILL.md                    # Skill instructions for Claude
+│   ├── LICENSE.txt
+│   └── scripts/                    # Complete translation toolkit
 ├── ppt_translator/
 │   ├── cli.py               # CLI parsing and orchestration
 │   ├── pipeline.py          # PPT extraction, translation, regeneration
-│   ├── providers/           # DeepSeek, OpenAI, Anthropic, Grok adapters
+│   ├── providers/           # DeepSeek, OpenAI, Anthropic, Grok, Gemini adapters
 │   ├── translation.py       # Chunking + caching translation service
 │   └── utils.py             # Filesystem helpers
 ├── tests/                   # Pytest suite
@@ -112,6 +123,16 @@ The test suite focuses on translation chunking/caching and CLI utilities to ensu
 ├── requirements.txt
 └── main.py                  # Entry point (delegates to CLI)
 ```
+
+## 🤖 Agent Skill
+
+This project includes a self-contained [Agent Skill](https://github.com/anthropics/skills) in `.claude/skills/ppt-translator/`.
+
+The skill directory contains everything needed to use this translator in any agent workflow:
+- `SKILL.md` - Instructions for Claude on how to use the tool
+- `scripts/` - Complete copy of all translation scripts and dependencies
+
+**To use in another project:** Copy the `.claude/skills/ppt-translator/` directory into your project's `.claude/skills/` folder. The skill is fully self-contained with all necessary scripts included.
 
 ## 🤝 Contributing
 
