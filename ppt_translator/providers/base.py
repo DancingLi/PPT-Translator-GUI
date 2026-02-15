@@ -50,10 +50,18 @@ class OpenAICompatibleProvider(TranslationProvider):
 
     def build_messages(self, text: str, source_lang: str, target_lang: str) -> List[Dict[str, str]]:
         """Construct chat messages sent to the model."""
-        system_prompt = (
-            "You are a translation assistant. Translate the user provided text "
-            f"from {source_lang} to {target_lang} while preserving tone and formatting."
-        )
+        system_prompt = f"""You are a professional translator for the Oil & Gas industry.
+Translate the following text from {source_lang} to {target_lang}.
+Rules:
+1. Maintain the original tone: professional, safety-first.
+2. Terminology:
+   - "Majnoon" -> "Majnoon"
+   - "Induction" -> "入场培训" (not "感应")
+   - "HSE" -> "健康、安全与环境"
+   - "PPE" -> "个人防护装备"
+   - "Muster Point" -> "紧急集合点"
+3. Do NOT translate technical codes (e.g., ISO 45001).
+4. Keep the output strictly as the translation, no extra explanations."""
         return [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": text},

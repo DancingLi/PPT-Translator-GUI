@@ -7,23 +7,26 @@ from .anthropic_provider import AnthropicProvider
 from .base import ProviderConfigurationError, TranslationProvider
 from .deepseek import DeepSeekProvider
 from .gemini_provider import GeminiProvider
+from .glm_provider import GLMProvider
 from .grok_provider import GrokProvider
 from .openai_provider import OpenAIProvider
 
 PROVIDER_REGISTRY: Dict[str, Type[TranslationProvider]] = {
     "deepseek": DeepSeekProvider,
+    "glm": GLMProvider,
+    "gemini": GeminiProvider,
     "openai": OpenAIProvider,
     "anthropic": AnthropicProvider,
     "grok": GrokProvider,
-    "gemini": GeminiProvider,
 }
 
 PROVIDER_DEFAULTS: Dict[str, Dict[str, str]] = {
     "deepseek": {"model": "deepseek-chat"},
+    "glm": {"model": "glm-5"},
+    "gemini": {"model": "gemini-3-flash"},
     "openai": {"model": "gpt-5.2-2025-12-11"},
     "anthropic": {"model": "claude-sonnet-4-5-20250514"},
     "grok": {"model": "grok-4.1-fast"},
-    "gemini": {"model": "gemini-3-flash-preview"},
 }
 
 
@@ -50,6 +53,7 @@ def create_provider(provider_name: str, *, model: str | None = None, **kwargs) -
 __all__ = [
     "AnthropicProvider",
     "DeepSeekProvider",
+    "GLMProvider",
     "GeminiProvider",
     "GrokProvider",
     "OpenAIProvider",
