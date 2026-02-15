@@ -10,7 +10,9 @@ Convert your PowerPoint presentations to beautifully translated documents while 
 
 *Clean, fast, and reliable PowerPoint translation with multi-provider support and formatting preservation*
 
-✨ [Features](#-features) • 🚀 [Quick Start](#-usage) • 📖 [Usage](#-usage) • 🧪 [Testing](#-testing) • 🤝 [Contributing](#-contributing)
+🖥️ **Now with a beautiful GUI!** This fork adds a graphical user interface to the original CLI tool, making it accessible to non-technical users.
+
+✨ [Features](#-features) • 🖥️ [GUI Version](#-gui-version) • 🚀 [Quick Start](#-usage) • 📖 [Usage](#-usage) • 🧪 [Testing](#-testing) • 🤝 [Contributing](#-contributing)
 
 </div>
 
@@ -138,9 +140,45 @@ The skill directory contains everything needed to use this translator in any age
 
 Pull requests and issues are welcome. Please run `pytest` before submitting changes and document any new providers or configuration steps in the README.
 
+## 🖥️ GUI Version
+
+This fork adds a **beautiful graphical user interface** to the original CLI tool, making it accessible to non-technical users.
+
+### GUI Features
+- 🎨 **Modern Interface**: Built with CustomTkinter for a clean, modern look
+- 🌓 **Theme Support**: Light and Dark mode support
+- 📁 **Drag & Drop**: Easy file selection with drag and drop support
+- 🔑 **API Key Management**: Secure API key storage and management
+- 📊 **Real-time Progress**: Live progress tracking with detailed status
+- 🌍 **Multi-language**: Support for 20+ languages
+
+### Running the GUI
+
+```bash
+python run_gui.py
+```
+
+Or use the pre-built executable:
+```bash
+./dist/PPTTranslator.exe
+```
+
+---
+
 ## Acknowledgments
 
 This project is based on the excellent work by [tristan-mcinnis](https://github.com/tristan-mcinnis) and their [PPT-Translator-Formatting-Intact-with-LLMs](https://github.com/tristan-mcinnis/PPT-Translator-Formatting-Intact-with-LLMs) project.
+
+### What This Fork Adds
+- **Complete GUI Interface**: Full graphical user interface built with CustomTkinter
+- **Provider Management**: Visual interface for managing multiple LLM providers
+- **Progress Tracking**: Real-time progress display with detailed status
+- **Theme System**: Light/Dark mode support with customizable themes
+- **Settings Management**: Persistent configuration storage
+- **Error Handling**: User-friendly error messages and recovery
+
+### Core Engine
+The underlying translation engine (PPT processing, XML conversion, format preservation, LLM integration) is entirely the work of **tristan-mcinnis**. This GUI is a wrapper that makes that powerful engine accessible through an intuitive visual interface.
 
 Special thanks to the original author for creating the core translation engine that powers this GUI application.
 
