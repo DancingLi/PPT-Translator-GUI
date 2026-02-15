@@ -138,6 +138,12 @@ The skill directory contains everything needed to use this translator in any age
 
 Pull requests and issues are welcome. Please run `pytest` before submitting changes and document any new providers or configuration steps in the README.
 
-## 📄 License
+## Acknowledgments
 
-This project remains under the MIT License. See `LICENSE` for details.
+This project is based on the excellent work by [tristan-mcinnis](https://github.com/tristan-mcinnis) and their [PPT-Translator-Formatting-Intact-with-LLMs](https://github.com/tristan-mcinnis/PPT-Translator-Formatting-Intact-with-LLMs) project.
+
+Special thanks to the original author for creating the core translation engine that powers this GUI application.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
