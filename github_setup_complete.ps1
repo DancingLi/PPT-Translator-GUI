@@ -1,1 +1,0 @@
-# PPT Translator GitHub 上传完整脚本
